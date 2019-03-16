@@ -19,6 +19,7 @@ class CreateDoctorsTable extends Migration
             $table->string('qualification');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('token')->nullable();
             $table->string('clinic_id');
             $table->timestamps();
         });

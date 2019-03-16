@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('pLogin','ApiController@patientLogin');
+Route::post('pSignup','ApiController@patientSignUp');
+Route::post('dLogin','ApiController@doctorLogin');
+Route::get('dAppointments','ApiController@getAppointments_d');
+Route::post('mAppointment','ApiController@makeAppointment');

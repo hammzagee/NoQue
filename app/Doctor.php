@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends Model
 {
+  protected $fillable = ['token'];
   public function appointments()
  {
      return $this->hasMany('App\Appointment');

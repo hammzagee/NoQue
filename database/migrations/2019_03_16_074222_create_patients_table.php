@@ -18,6 +18,7 @@ class CreatePatientsTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('token')->nullable();
             $table->timestamps();
         });
     }
