@@ -9,6 +9,7 @@ use Validator;
 use App\Appointment;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Doctor as DoctorResource;
+use App\Http\Resources\Patient as PatientResource;
 
 class ApiController extends Controller
 {
@@ -110,11 +111,28 @@ class ApiController extends Controller
 
     public function getPrescription(Request $request)
     {
-
+      $record = Patient::where('token',$request->get('token'))->first();
+      if(isset($record)){
+        return response()->json(['success'=>true, 'message'=>'Successfully','data'=> new PatientResource($record)],200);
+      }
+      else {
+        return response()->json(['success'=>false, 'message'=>'Unauthorized'],401);
+      }
     }
 
     public function makePrescription(Request $request)
     {
-
+        $record = Doctor::where('token',$request->get('token'))->first();
+        if (isset($record)) {
+          $pres = Prescription::create([
+            'patient_id'=>$request->get('patient_id'),
+            'doctor_id'=>$record->id,
+            'pres'=>$request->get('prescription'),
+          ]);
+            return response()->json(['success'=>true, 'message'=>'Prescription given Successfully'],200);
+        }
+        else {
+          return response()->json(['success'=>false, 'message'=>'Unauthorized'],401);
+        }
     }
 }
