@@ -56,7 +56,10 @@ class ApiController extends Controller
               'email' => $input['email'],
               'password' => $input['password']
               ]);
-          return response()->json(['success'=>true,'message'=>'Patient Register Successfull'], 200);
+          $token = Hash::make(str_random(8));
+          $patient->token = $token;
+          $patient->save();
+          return response()->json(['success'=>true,'message'=>'Patient Register Successfull','token'=>$token], 200);
         }
     }
 
