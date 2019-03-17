@@ -33,6 +33,10 @@ class ApiController extends Controller
       }
     }
 
+    public function getDoctors()
+    {
+      return response()->json(['success'=>true, 'message'=>'Doctors List Fetched','doctors'=>DoctorResource::collection(Doctor::all())],200);
+    }
     public function patientSignUp(Request $request)
     {
       $validator = Validator::make($request->all(), [

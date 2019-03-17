@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('pLogin','ApiController@patientLogin');
 Route::post('pSignup','ApiController@patientSignUp');
+Route::get('getDoctors','ApiController@getDoctors');
 Route::post('dLogin','ApiController@doctorLogin');
 Route::get('dAppointments','ApiController@getAppointments_d');
 Route::post('mAppointment','ApiController@makeAppointment');
