@@ -25,11 +25,11 @@ class ApiController extends Controller
           return response()->json(['success'=>true, 'message'=>'Successfully','token'=>$token],200);
         }
         else {
-          return response()->json(['success'=>false, 'message'=>'Wrong Password'],401);
+          return response()->json(['success'=>false, 'message'=>'Wrong Password'],200);
         }
       }
       else {
-        return response()->json(['success'=>false, 'message'=>'No Record Found Against provided Email'],401);
+        return response()->json(['success'=>false, 'message'=>'No Record Found Against provided Email'],200);
       }
     }
 
@@ -42,11 +42,11 @@ class ApiController extends Controller
            'c_password' => 'required|same:password',
        ]);
        if ($validator->fails()) {
-            return response()->json(['success'=>false,'message'=>$validator->errors()], 401);
+            return response()->json(['success'=>false,'message'=>$validator->errors()], 200);
         }
         $record = Patient::where('email',$request->get('email'))->first();
         if(isset($record)){
-          return response()->json(['success'=>false,'message'=>'This Email is Taken'], 401);
+          return response()->json(['success'=>false,'message'=>'This Email is Taken'], 200);
         }
         else {
           $input = $request->all();
@@ -74,11 +74,11 @@ class ApiController extends Controller
           return response()->json(['success'=>true, 'message'=>'Successfully','token'=>$token],200);
         }
         else {
-          return response()->json(['success'=>false, 'message'=>'Wrong Password'],401);
+          return response()->json(['success'=>false, 'message'=>'Wrong Password'],200);
         }
       }
       else {
-        return response()->json(['success'=>false, 'message'=>'No Record Found Against provided Email'],401);
+        return response()->json(['success'=>false, 'message'=>'No Record Found Against provided Email'],200);
       }
     }
 
@@ -90,7 +90,7 @@ class ApiController extends Controller
         return response()->json(['success'=>true, 'message'=>'Successfully','data'=>DoctorResource::collection($appoints)],200);
         }
       else {
-        return response()->json(['success'=>false, 'message'=>'Unauthorized'],401);
+        return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);
       }
     }
 
@@ -110,11 +110,11 @@ class ApiController extends Controller
           return response()->json(['success'=>true, 'message'=>'Appointment Placed Successfully'],200);
         }
         else {
-          return response()->json(['success'=>false, 'message'=>'UnKnown Doctor'],401);
+          return response()->json(['success'=>false, 'message'=>'UnKnown Doctor'],200);
         }
       }
       else {
-        return response()->json(['success'=>false, 'message'=>'Unauthorized'],401);
+        return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);
       }
 
     }
@@ -132,7 +132,7 @@ class ApiController extends Controller
         }
       }
       else {
-        return response()->json(['success'=>false, 'message'=>'Unauthorized'],401);
+        return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);
       }
     }
 
@@ -151,7 +151,7 @@ class ApiController extends Controller
         }
       }
       else {
-          return response()->json(['success'=>false, 'message'=>'Unauthorized'],401);
+          return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);
       }
     }
 
@@ -162,7 +162,7 @@ class ApiController extends Controller
         return response()->json(['success'=>true, 'message'=>'Successfully','data'=> new PatientResource($record)],200);
       }
       else {
-        return response()->json(['success'=>false, 'message'=>'Unauthorized'],401);
+        return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);
       }
     }
 
@@ -178,7 +178,7 @@ class ApiController extends Controller
             return response()->json(['success'=>true, 'message'=>'Prescription given Successfully'],200);
         }
         else {
-          return response()->json(['success'=>false, 'message'=>'Unauthorized'],401);
+          return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);
         }
     }
 }
