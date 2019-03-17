@@ -22,7 +22,7 @@ class ApiController extends Controller
           $token = Hash::make(str_random(8));
           $record->token = $token;
           $record->save();
-          return response()->json(['success'=>true, 'message'=>'Successfully','token'=>$token],200);
+          return response()->json(['success'=>true, 'message'=>'Successfully','token'=>$token,'name'=>$record->name],200);
         }
         else {
           return response()->json(['success'=>false, 'message'=>'Wrong Password'],200);
