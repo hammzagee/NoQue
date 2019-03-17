@@ -4,11 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-use App\Http\Resources\Appointment as AppointmentResource;
-
-use App\Http\Resources\Clinic as ClinicResource;
-
-class Doctor extends JsonResource
+class Clinic extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,11 +15,9 @@ class Doctor extends JsonResource
     public function toArray($request)
     {
         return [
-          'id'=>$this->id,
           'name'=>$this->name,
+          'phone'=>$this->phone_number,
           'email'=>$this->email,
-          'appointments'=> AppointmentResource::collection($this->appointments),
-          'clinic'=>ClinicResource::($this->clinic),
         ];
     }
 }
