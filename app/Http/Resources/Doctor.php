@@ -18,7 +18,6 @@ class Doctor extends JsonResource
     {
         return [
           'name'=>$this->name,
-          'email'=>$this->email,
           'appointments'=> AppointmentResource::collection($this->appointments),
         ];
     }
