@@ -20,6 +20,7 @@ class CreateAppointmentsTable extends Migration
             $table->integer('endTime');
             $table->integer('doctor_id');
             $table->integer('patient_id');
+            $table->Date('date')->default(Carbon\Carbon::now());
             $table->timestamps();
         });
     }
