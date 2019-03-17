@@ -44,14 +44,20 @@ class ApiController extends Controller
        if ($validator->fails()) {
             return response()->json(['success'=>false,'message'=>$validator->errors()], 401);
         }
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $patient = Patient::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => $input['password']
-            ]);
-        return response()->json(['success'=>true,'message'=>'Patient Register Successfull'], 200);
+        $record = Patient::where('email',$request->get('email'))->first();
+        if(isset($record)){
+          return response()->json(['success'=>false,'message'=>'This Email is Taken'], 401);
+        }
+        else {
+          $input = $request->all();
+          $input['password'] = bcrypt($input['password']);
+          $patient = Patient::create([
+              'name' => $input['name'],
+              'email' => $input['email'],
+              'password' => $input['password']
+              ]);
+          return response()->json(['success'=>true,'message'=>'Patient Register Successfull'], 200);
+        }
     }
 
     public function doctorLogin(Request $request)
