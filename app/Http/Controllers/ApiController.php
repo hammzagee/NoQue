@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Patient;
 use App\Doctor;
 use Validator;
+use DB;
 use App\Appointment;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Doctor as DoctorResource;
@@ -107,6 +108,32 @@ class ApiController extends Controller
         return response()->json(['success'=>false, 'message'=>'Unauthorized'],401);
       }
 
+    }
+
+    public function reScheduleGetAppointment(Request $request)
+    {
+      $record = Patient::where('token',$request->get('token'))->first();
+      if(isset($record->appointment)){
+        $doc = Doctor::with('Appointments')->where('id',$record->appointment->doctor_id)->get();
+        return response()->json(['success'=>true, 'message'=>'Successfully','data'=>DoctorResource::collection($doc)],200);
+      }
+      else {
+        return response()->json(['success'=>false, 'message'=>'Unauthorized OR No Appointments ATM'],401);
+      }
+    }
+
+    public function updateAppointment(Request $request)
+    {
+      $record = Patient::where('token',$request->get('token'))->first();
+      if(isset($record->appointment)){
+        DB::table('appointments')
+        ->where('patient_id',$record->id)
+        ->update(['startTime'=>$request->get('startTime'),'endTime'=>$request->get('endTime')]);
+        return response()->json(['success'=>true, 'message'=>'Appointment Successfully Updated'],200);
+      }
+      else {
+          return response()->json(['success'=>false, 'message'=>'Unauthorized OR No Appointments ATM'],401);
+      }
     }
 
     public function getPrescription(Request $request)
