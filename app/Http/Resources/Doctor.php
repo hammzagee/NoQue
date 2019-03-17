@@ -23,7 +23,7 @@ class Doctor extends JsonResource
           'name'=>$this->name,
           'email'=>$this->email,
           'appointments'=> AppointmentResource::collection($this->appointments),
-          'clinic'=>new ClinicResource::($this->clinic),
+          'clinic'=>new ClinicResource($this->clinic),
         ];
     }
 }
