@@ -41,7 +41,7 @@ class TruncateOldRecords extends Command
      */
     public function handle()
     {
-      Appointment::where('date','<',Carbon::now())->each(function($item){
+      Appointment::where('date','<',Carbon::today())->each(function($item){
         $item->delete();
       });
     }
