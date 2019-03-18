@@ -88,10 +88,14 @@ class ApiController extends Controller
 
     public function getAppointments_d(Request $request)
     {
+      $appStatus = false;
+      $patient = Patient::where('id',$request->get('token'))->first();
+      if(isset($patient))
+        $appStatus = true;
       $record = Doctor::where('id',$request->get('id'))->first();
       if(isset($record)){
         $appoints = Doctor::with('Clinic')->where('id',$request->get('id'))->get();
-        return response()->json(['success'=>true, 'message'=>'Successfully','day1'=>Appointment::where('day',1)->count(),
+        return response()->json(['success'=>true, 'message'=>'Successfully','appStatus'=>$appStatus,'day1'=>Appointment::where('day',1)->count(),
         'day2'=>Appointment::where('day',2)->count(),'day3'=>Appointment::where('day',3)->count(),
         'day4'=>Appointment::where('day',4)->count(),'day5'=>Appointment::where('day',5)->count(),
         'data'=>DoctorResource::collection($appoints),],200);
