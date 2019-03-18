@@ -22,6 +22,7 @@ Route::post('pSignup','ApiController@patientSignUp');
 Route::get('getDoctors','ApiController@getDoctors');
 Route::post('dLogin','ApiController@doctorLogin');
 Route::get('dAppointments','ApiController@getAppointments_d');
+Route::get('getDoctorAppointments','ApiController@getDoctorAppointments');
 Route::post('mAppointment','ApiController@makeAppointment');
 Route::get('pPrescriptions','ApiController@getPrescription');
 Route::post('dPrescription','ApiController@makePrescription');
