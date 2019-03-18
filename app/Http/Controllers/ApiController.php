@@ -143,7 +143,10 @@ class ApiController extends Controller
       if(isset($record)){
         if (isset($record->appointment)) {
           $doc = Doctor::with('Appointments')->where('id',$record->appointment->doctor_id)->get();
-          return response()->json(['success'=>true, 'message'=>'Successfully','current_app'=>new AppointmentResource($record->appointment),'data'=>DoctorResource::collection($doc)],200);
+          return response()->json(['success'=>true, 'message'=>'Successfully','day1'=>Appointment::where('day',1)->count(),
+          'day2'=>Appointment::where('day',2)->count(),'day3'=>Appointment::where('day',3)->count(),
+          'day4'=>Appointment::where('day',4)->count(),'day5'=>Appointment::where('day',5)->count(),
+          'current_app'=>new AppointmentResource($record->appointment),'data'=>DoctorResource::collection($doc)],200);
         }
         else {
             return response()->json(['success'=>true, 'message'=>'No Appointments'],200);
