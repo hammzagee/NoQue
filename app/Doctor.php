@@ -9,7 +9,7 @@ class Doctor extends Model
   protected $fillable = ['token'];
   public function appointments()
  {
-     return $this->hasMany('App\Appointment');
+     return $this->hasMany('App\Appointment')->orderby('day','asc');
  }
 
  public function prescriptions()
