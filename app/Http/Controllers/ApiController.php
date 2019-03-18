@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Doctor as DoctorResource;
 use App\Http\Resources\Patient as PatientResource;
 use App\Http\Resources\Appointment as AppointmentResource;
+use App\Http\Resources\Patient as PatientResource;
 
 class ApiController extends Controller
 {
@@ -183,6 +184,18 @@ class ApiController extends Controller
         else {
           return response()->json(['success'=>true, 'message'=>'No Appointments'],200);
         }
+      }
+      else {
+          return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);
+      }
+    }
+
+    public function getPatients(Request $request)
+    {
+      $record = Doctor::where('token',$request->get('token'))->first();
+      if (isset($record)) {
+        return response()->json(['success'=>true, 'message'=>'Successfully',
+        'data'=>PatientResource::collection($record->patients)],200);
       }
       else {
           return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);
