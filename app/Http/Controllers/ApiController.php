@@ -192,8 +192,14 @@ class ApiController extends Controller
     public function getPatients(Request $request)
     {
       $record = Doctor::where('token',$request->get('token'))->first();
+      $data = DB::table('appointments')
+      ->join('patients','patient_id','patients.id')
+      ->where('appointments.doctor_id',$record->id)
+      ->select('patients.name')
+      ->distinct()
+      ->get();
       if (isset($record)) {
-        return response()->json(['success'=>true, 'message'=>'Successfully','data'=>PatientResource::collection($record->patients)],200);
+        return response()->json(['success'=>true, 'message'=>'Successfully','data'=>$data],200);
       }
       else {
           return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);
