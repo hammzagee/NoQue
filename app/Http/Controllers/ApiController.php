@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Doctor as DoctorResource;
 use App\Http\Resources\Patient as PatientResource;
 use App\Http\Resources\Appointment as AppointmentResource;
-use App\Http\Resources\Patient as PatientResource;
 
 class ApiController extends Controller
 {
