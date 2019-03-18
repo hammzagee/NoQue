@@ -161,7 +161,7 @@ class ApiController extends Controller
         if (isset($record->appointment)) {
           DB::table('appointments')
           ->where('patient_id',$record->id)
-          ->update(['startTime'=>$request->get('startTime'),'endTime'=>$request->get('endTime')]);
+          ->update(['startTime'=>$request->get('startTime'),'endTime'=>$request->get('endTime'),'day'=>$request->get('day')]);
           return response()->json(['success'=>true, 'message'=>'Appointment Successfully Updated'],200);
         }
         else {
