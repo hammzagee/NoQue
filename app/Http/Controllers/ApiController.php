@@ -193,8 +193,7 @@ class ApiController extends Controller
     {
       $record = Doctor::where('token',$request->get('token'))->first();
       if (isset($record)) {
-        return response()->json(['success'=>true, 'message'=>'Successfully',
-        'data'=>PatientResource::collection($record->patients)],200);
+        return response()->json(['success'=>true, 'message'=>'Successfully','data'=>PatientResource::collection($record->patients)],200);
       }
       else {
           return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);
