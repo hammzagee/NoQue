@@ -92,8 +92,11 @@ class ApiController extends Controller
       $patient = Patient::where('id',$request->get('token'))->first();
       if(isset($patient)){
         $app = Appointment::where('patient_id',$patient->id)->first();
-        if(isset($app))
+        if(isset($app)){
           $appStatus = true;
+        }else {
+          $appStatus = false;
+        }
       }
       $record = Doctor::where('id',$request->get('id'))->first();
       if(isset($record)){
