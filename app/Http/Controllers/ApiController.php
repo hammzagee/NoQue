@@ -195,7 +195,7 @@ class ApiController extends Controller
       $data = DB::table('appointments')
       ->join('patients','patient_id','patients.id')
       ->where('appointments.doctor_id',$record->id)
-      ->select('patients.name')
+      ->select('patients.name','patients.id')
       ->distinct()
       ->get();
       if (isset($record)) {
