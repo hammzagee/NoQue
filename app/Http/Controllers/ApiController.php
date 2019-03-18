@@ -8,6 +8,7 @@ use App\Doctor;
 use Validator;
 use DB;
 use App\Appointment;
+use App\Prescription;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Doctor as DoctorResource;
 use App\Http\Resources\Patient as PatientResource;
