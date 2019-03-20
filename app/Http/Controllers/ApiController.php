@@ -8,6 +8,7 @@ use App\Doctor;
 use Validator;
 use DB;
 use App\Appointment;
+use App\Prescription;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Doctor as DoctorResource;
 use App\Http\Resources\Patient as PatientResource;
@@ -87,6 +88,19 @@ class ApiController extends Controller
       }
     }
 
+    public function getDoctorAppointments(Request $request)
+    {
+        $record = Doctor::where('token',$request->get('token'))->first();
+        if (isset($record)) {
+          return response()->json(['success'=>true, 'message'=>'Successfully','day1'=>Appointment::where('day',1)->count(),
+          'day2'=>Appointment::where('day',2)->count(),'day3'=>Appointment::where('day',3)->count(),
+          'day4'=>Appointment::where('day',4)->count(),'day5'=>Appointment::where('day',5)->count(),
+          'data'=>AppointmentResource::collection($record->appointments)],200);
+        }
+        else {
+            return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);
+        }
+    }
     public function getAppointments_d(Request $request)
     {
       $appStatus = false;
@@ -170,6 +184,23 @@ class ApiController extends Controller
         else {
           return response()->json(['success'=>true, 'message'=>'No Appointments'],200);
         }
+      }
+      else {
+          return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);
+      }
+    }
+
+    public function getPatients(Request $request)
+    {
+      $record = Doctor::where('token',$request->get('token'))->first();
+      if (isset($record)) {
+        $data = DB::table('appointments')
+        ->join('patients','patient_id','patients.id')
+        ->where('appointments.doctor_id',$record->id)
+        ->select('patients.name','patients.id')
+        ->distinct()
+        ->get();
+        return response()->json(['success'=>true, 'message'=>'Successfully','data'=>$data],200);
       }
       else {
           return response()->json(['success'=>false, 'message'=>'Unauthorized'],200);

@@ -10,7 +10,7 @@ class Patient extends Model
 
   public function prescriptions()
   {
-      return $this->hasMany('App\Prescription');
+      return $this->hasMany('App\Prescription')->orderby('created_at','desc');
   }
 
   public function appointment()

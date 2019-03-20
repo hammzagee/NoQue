@@ -17,6 +17,7 @@ class Patient extends JsonResource
     public function toArray($request)
     {
         return [
+          'id'=>$this->id,
           'name'=>$this->name,
           'email'=>$this->email,
           'prescriptions'=> PrescriptionResource::collection($this->prescriptions),
