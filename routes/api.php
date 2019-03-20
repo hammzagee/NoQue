@@ -16,3 +16,14 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('pLogin','ApiController@patientLogin');
+Route::post('pSignup','ApiController@patientSignUp');
+Route::get('getDoctors','ApiController@getDoctors');
+Route::post('dLogin','ApiController@doctorLogin');
+Route::get('dAppointments','ApiController@getAppointments_d');
+Route::post('mAppointment','ApiController@makeAppointment');
+Route::get('pPrescriptions','ApiController@getPrescription');
+Route::post('dPrescription','ApiController@makePrescription');
+Route::get('getReSchedule','ApiController@reScheduleGetAppointment');
+Route::post('updateAppointment','ApiController@updateAppointment');
